@@ -1,48 +1,24 @@
-# Evidence Template Project
+# ButtonFilter
 
-## Using Codespaces
+This is a demo of the `ButtonFilters` component. It's a barebones component that accepts one input, `items` which should be formatted as 
+a comma-delimited string listing each individual value that should appear as a fitlerable value.
 
-If you are using this template in Codespaces, click the `Start Evidence` button in the bottom status bar. This will install dependencies and open a preview of your project in your browser - you should get a popup prompting you to open in browser.
+The component allows the user to quickly filter for one or more of the `items` by clicking them in the list, similar to the [slicer](https://support.microsoft.com/en-us/office/use-slicers-to-filter-data-249f966b-a9d5-4b0f-b31a-12651785d29d) in Excel. When none of the `items` are selected, the default behavior is to show 
+all items.
 
-Or you can use the following commands to get started:
+The component was built for a much earlier version of Evidence and needs some work to make it complete. I'm not a JS developer and I am shit with Svelte so this 
+is just a quick hack to make something that would work for me. Note that it is possible to use duckdb's `list()` to generate the list of `items` but my implementation of that causes some problems in local dev right now due to the bug being addressed by [this PR](https://github.com/evidence-dev/evidence/pull/3032). So for now, I'm just passing in the raw string to `items`.
 
-```bash
-npm install
-npm run sources
-npm run dev -- --host 0.0.0.0
-```
+## Usage
 
-See [the CLI docs](https://docs.evidence.dev/cli/) for more command information.
+Create a "compoents" directory in your project if one does not already exist. Copy ButtonFilters.svelte into that directory. Then, create a ButtonFilters component on your page like so:
 
-**Note:** Codespaces is much faster on the Desktop app. After the Codespace has booted, select the hamburger menu → Open in VS Code Desktop.
+`<ButtonFilters items="comma,separated,list,of,items,for,filtering" name="month_filter" />`
 
-## Get Started from VS Code
+Finally, in the SQL that selects data you want to be filterable, use the filter like so:
 
-The easiest way to get started is using the [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=Evidence.evidence-vscode):
+`select my_data
+from my_table
+where column_to_be_filtered in (${inputs.month_filter})`
 
-
-
-1. Install the extension from the VS Code Marketplace
-2. Open the Command Palette (Ctrl/Cmd + Shift + P) and enter `Evidence: New Evidence Project`
-3. Click `Start Evidence` in the bottom status bar
-
-## Get Started using the CLI
-
-```bash
-npx degit evidence-dev/template my-project
-cd my-project 
-npm install 
-npm run sources
-npm run dev 
-```
-
-Check out the docs for [alternative install methods](https://docs.evidence.dev/getting-started/install-evidence) including Docker, Github Codespaces, and alongside dbt.
-
-
-
-## Learning More
-
-- [Docs](https://docs.evidence.dev/)
-- [Github](https://github.com/evidence-dev/evidence)
-- [Slack Community](https://slack.evidence.dev/)
-- [Evidence Home Page](https://www.evidence.dev)
+That's it.
