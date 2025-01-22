@@ -11,7 +11,7 @@ is just a quick hack to make something that would work for me. Note that it is p
 
 ## Usage
 
-Create a "compoents" directory in your project if one does not already exist. Copy ButtonFilters.svelte into that directory. Then, create a ButtonFilters component on your page like so:
+Create a "components" directory in your project if one does not already exist. Copy ButtonFilters.svelte into that directory. Then, create a ButtonFilters component on your page like so:
 
 `<ButtonFilters items="comma,separated,list,of,items,for,filtering" name="month_filter" />`
 
